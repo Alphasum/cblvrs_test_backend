@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cblvrproject-alphasums-projects.vercel.app/build/css/style.css" />
+  <link rel="icon" type="image/png" href="https://cblvrproject-alphasums-projects.vercel.app/build/img/icon.png">
+  <script src="https://cblvrproject-alphasums-projects.vercel.app/js/main.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.5.2/dist/web3.min.js"></script>
+
+  <style>
+    .container {
+      max-width: 800px;
+    }
+
+    .masked {
+      -webkit-text-security: disc;
+      /* For Safari */
+      -text-security: disc;
+      /* For others */
+    }
+
+    .eye-icon {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 flex bg-gradient-to-r from-green-500 to-blue-500 lg:w-2/3 m-auto">
+
+  <!-- Sidebar -->
+  <aside class="hidden text-xl md:block m-auto p-2 w-auto bg-gray-800 text-white h-screen">
+    <div class="p-4">
+      <h1 class="text-2xl font-bold w-64">
+        <a href="/"><img
+            src="https://cblvrproject-alphasums-projects.vercel.app/build/img/Screenshot_2024-05-25_13-04-05-removebg-preview.png"
+            alt="SanctuarySphere" class="size-8/12" /></a>
+      </h1>
+    </div>
+    <div class="py-2.5 px-4 my-5 rounded transition duration-200">
+      <div class="flex items-center">
+        <img class="w-12 h-12 rounded-full"
+          src="https://cblvrproject-alphasums-projects.vercel.app/build/videos/profpic1.jpg" alt="Team Member 1" />
+        <a href="/profile" class="py-2.5 px-4">Welcome {{ user.first_name }}</a>
+      </div>
+      <button id="connectButton"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-5 rounded">Connect Wallet</button>
+      <p class="text-xs my-5">Wallet ID: <br><span id="walletId" class="masked"></span> <i id="toggleWalletId"
+          class="fas fa-eye eye-icon"></i></p>
+      <p class="text-xs my-5">BNB Balance: <br><span id="bnbBalance" class="masked"></span> <i id="toggleBalance"
+          class="fas fa-eye eye-icon"></i></p>
+
+
+
+    </div>
+    <nav class="my-5">
+      <span class="py-2.5 px-4 text-2xl font-bold ">Features</span>
+      <a href="/bible" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Bible</a>
+      <a href="/socialcircle" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Social
+        Circle</a>
+      <a href="/entertainment" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Christian
+        Home Entertainment</a>
+      <a href="/blessedbazaar" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Blessed
+        Bazaar</a>
+      <a href="/spherebids" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Sphere Bids and
+        Lottery</a>
+      <a href="/gracefulgiving" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Graceful
+        Giving</a>
+      <a href="/biblespaceenv" class="block py-2.5 px-4 mb-5 rounded transition duration-200 hover:bg-gray-700">Bible
+        Space Environment</a>
+
+    </nav>
+    <a href="/logout"
+      class=" bg-gradient-to-r from-green-500 to-orange-500 m-10 py-2 px-4 xl:py-4 xl:px-10 rounded text-sm  font-bold whitespace-nowrap hover:text-blue-950">Sign
+      Out</a>
+
+  </aside>
+  <!-- Main Content -->
+  <div class="flex-1 p-6">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-200 to-blue-500 shadow mb-6 grid grid-cols-2 gap-8 rounded-full">
+      <div class="container mx-auto px-6 py-4 m-auto object-center">
+        <h1 class="text-3xl font-bold text-gray-800 text-center">User Profile</h1>
+
+      </div>
+    </header>
+
+    <!-- Profile Information -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <div class="flex items-center space-x-6 mb-6">
+        {% if user.profile_picture %}
+        <img src="{{ url_for('static', filename='uploads/' + user.profile_picture) }}" alt="Profile Picture"
+          style="width: 150px; height: 150px; border-radius: 50%;">
+        {% else %}
+        <p>No profile picture uploaded</p>
+        {% endif %}
+      </div>
+      <form method="POST" enctype="multipart/form-data">
+          <input type="file" name="profile_picture">
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Upload Profile Picture</button>
+        </form>
+        <div>
+      </div>
+      <div class="my-4">
+        <label class="block text-gray-700">Username</label>
+        <input type="text" value="{{ user.first_name }}" class="w-full p-2 border border-gray-300 rounded mt-1">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700">Email</label>
+        <input type="email" value="{{ user.email }}" class="w-full p-2 border border-gray-300 rounded mt-1">
+      </div>
+      <div class="flex space-x-4">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Edit</button>
+        <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
+      </div>
+    </div>
+
+    <!-- User Wallet -->
+    <div class="bg-white p-6 rounded-lg shadow-lg mt-6">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">User Wallet</h2>
+      <p class="text-sm">Wallet ID: <span id="walletId2"></span> </p>
+      <p class="text-sm">BNB Balance: <span id="bnbBalance2"></span> </p>
+      <a href="{{ url_for('payment') }}"><button
+          class="bg-green-500 text-white px-4 py-2 rounded mt-4 hover:bg-green-600">BUY CHRS</button></a>
+
+    </div>
+
+    <!-- Settings -->
+    <div class="bg-white p-6 rounded-lg shadow-lg mt-6">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Settings</h2>
+      <div class="mb-4">
+        <label class="block text-gray-700">Change Password</label>
+        <input type="password" class="w-full p-2 border border-gray-300 rounded mt-1">
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700">Notification Preferences</label>
+        <select class="w-full p-2 border border-gray-300 rounded mt-1">
+          <option>Email Notifications</option>
+          <option>SMS Notifications</option>
+          <option>Push Notifications</option>
+        </select>
+      </div>
+      <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Save Changes</button>
+    </div>
+
+  </div>
+
+  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+  </div>
+  <script>
+    document.getElementById('connectButton').addEventListener('click', async () => {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          // Request account access
+          const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+          const account = accounts[0];
+
+          // Display wallet ID
+          document.getElementById('walletId').innerText = account;
+          document.getElementById('walletId2').innerText = account;
+
+
+          // Create web3 instance
+          const web3 = new Web3(window.ethereum);
+
+          // Fetch BNB balance
+          const balanceWei = await web3.eth.getBalance(account);
+          const balanceBNB = web3.utils.fromWei(balanceWei, 'ether');
+
+          // Display BNB balance
+          document.getElementById('bnbBalance').innerText = balanceBNB;
+          document.getElementById('bnbBalance2').innerText = balanceBNB;
+
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        alert('MetaMask is not installed. Please install MetaMask and try again.');
+      }
+    });
+
+    function toggleVisibility(elementId, iconId) {
+      const element = document.getElementById(elementId);
+      const icon = document.getElementById(iconId);
+      if (element.classList.contains('masked')) {
+        element.classList.remove('masked');
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        element.classList.add('masked');
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+
+    document.getElementById('toggleWalletId').addEventListener('click', () => {
+      toggleVisibility('walletId', 'toggleWalletId');
+    });
+
+    document.getElementById('toggleBalance').addEventListener('click', () => {
+      toggleVisibility('bnbBalance', 'toggleBalance');
+    });
+
+
+  </script>
+</body>
+
+</html>

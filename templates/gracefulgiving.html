@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graceful Giving</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cblvrproject-alphasums-projects.vercel.app/build/css/style.css" />
+    <link rel="icon" type="image/png" href="https://cblvrproject-alphasums-projects.vercel.app/build/img/icon.png">
+    <script src="https://cblvrproject-alphasums-projects.vercel.app/js/main.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.5.2/dist/web3.min.js"></script>
+  
+  <style>
+    .container {
+      max-width: 800px;
+    }
+    .masked {
+            -webkit-text-security: disc; /* For Safari */
+            -text-security: disc; /* For others */
+        }
+        .eye-icon {
+            cursor: pointer;
+        }
+  </style>
+
+</head>
+<body class="bg-gray-100 flex bg-gradient-to-r from-green-500 to-blue-500 lg:w-2/3 m-auto">
+
+    <!-- Sidebar -->
+    <aside class="w-auto bg-gray-800 text-white h-screen">
+        <div class="p-4">
+          <h1 class="text-2xl font-bold w-64">
+            <a href="/"><img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/Screenshot_2024-05-25_13-04-05-removebg-preview.png"
+                alt="SanctuarySphere" class="size-8/12" /></a>
+          </h1>
+        </div>
+        <div class="py-2.5 px-4 my-5 rounded transition duration-200">
+          <div class="flex items-center">
+            <img class="w-12 h-12 rounded-full" src="https://cblvrproject-alphasums-projects.vercel.app/build/videos/profpic1.jpg" alt="Team Member 1" />
+            <a href="/profile" class="py-2.5 px-4">Welcome {{ first_name }}</a>
+          </div>
+          <button id="connectButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-5 rounded">Connect Wallet</button>
+            <p class="text-xs my-5">Wallet ID: <br><span id="walletId" class="masked"></span> <i id="toggleWalletId" class="fas fa-eye eye-icon"></i></p>
+            <p class="text-xs my-5">BNB Balance: <br><span id="bnbBalance" class="masked"></span> <i id="toggleBalance" class="fas fa-eye eye-icon"></i></p>
+          
+
+          
+        </div>
+        <nav class="my-5">
+          <span class="py-2.5 px-4 text-2xl font-bold ">Features</span>
+          <a href="/bible"
+            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Bible</a>
+          <a href="/socialcircle"
+            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Social Circle</a>
+          <a href="/entertainment"
+            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Christian Home Entertainment</a>
+          <a href="/blessedbazaar"
+            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Blessed Bazaar</a>
+          <a href="/spherebids"
+            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Sphere Bids and Lottery</a>
+          <a href="/gracefulgiving"
+            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Graceful Giving</a>
+          <a href="/biblespaceenv"
+            class="block py-2.5 px-4 mb-5 rounded transition duration-200 hover:bg-gray-700">Bible Space Environment</a>
+
+        </nav>
+        <a href="/logout" class=" bg-gradient-to-r from-green-500 to-orange-500 m-10 py-2 px-4 xl:py-4 xl:px-10 rounded text-sm  font-bold whitespace-nowrap hover:text-blue-950">Sign Out</a>
+
+      </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6">
+
+        <!-- Header -->
+
+        <header class="bg-gradient-to-r from-green-200 to-blue-500 shadow mb-6 grid grid-cols-1 lg:grid-cols-2 gap-8 rounded-full">
+            <div class="container mx-auto px-6 py-4 m-auto object-center text-center">
+                <h1 class="text-3xl font-bold text-gray-800">Graceful Giving</h1>
+                <p class="text-gray-600">Donate to charitable causes around the world using CHRS.</p>
+            </div>
+            <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+            <lottie-player class="bg-blue-500 rounded-full" src="https://lottie.host/5346292a-f016-4fab-a946-b99370759ce2/pC0AKr56cp.json" background="##FFFFFF" speed="1" style="width: 300px; height: 300px" loop autoplay direction="1" mode="normal"></lottie-player>
+        </header>
+        
+
+        <!-- Charity Causes Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Charity Cause 1 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/GGcleanwater.jpg" alt="Charity Image" class="w-auto h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-gray-800">Clean Water Initiative</h3>
+                    <p class="text-gray-600">Providing clean water to underdeveloped regions.</p>
+                    <p class="text-gray-600">Target: 500 CHRS</p>
+                    <p class="text-gray-600">Raised: 250 CHRS</p>
+                    <p class="text-gray-600">Location: Africa</p>
+                    <a href="https://example.com" class="text-blue-500 hover:underline">Visit Website</a>
+                    <div class="mt-4 flex space-x-2">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Donate</button>
+                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Share</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Charity Cause 2 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/GGschool.jpg" alt="Charity Image" class="w-auto h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-gray-800">School Supplies for Kids</h3>
+                    <p class="text-gray-600">Providing essential school supplies to children in need.</p>
+                    <p class="text-gray-600">Target: 300 CHRS</p>
+                    <p class="text-gray-600">Raised: 150 CHRS</p>
+                    <p class="text-gray-600">Location: India</p>
+                    <a href="https://example.com" class="text-blue-500 hover:underline">Visit Website</a>
+                    <div class="mt-4 flex space-x-2">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Donate</button>
+                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Share</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Charity Cause 3 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/GGmedicalaids.jpg" alt="Charity Image" class="w-auto h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-gray-800">Medical Aid for Refugees</h3>
+                    <p class="text-gray-600">Providing medical aid to refugees and displaced persons.</p>
+                    <p class="text-gray-600">Target: 700 CHRS</p>
+                    <p class="text-gray-600">Raised: 400 CHRS</p>
+                    <p class="text-gray-600">Location: Middle East</p>
+                    <a href="https://example.com" class="text-blue-500 hover:underline">Visit Website</a>
+                    <div class="mt-4 flex space-x-2">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Donate</button>
+                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Share</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Charity Cause 4 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/GGfoodhomless.jpg" alt="Charity Image" class="w-auto h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-gray-800">Food for the Homeless</h3>
+                    <p class="text-gray-600">Providing meals to homeless individuals and families.</p>
+                    <p class="text-gray-600">Target: 400 CHRS</p>
+                    <p class="text-gray-600">Raised: 200 CHRS</p>
+                    <p class="text-gray-600">Location: USA</p>
+                    <a href="https://example.com" class="text-blue-500 hover:underline">Visit Website</a>
+                    <div class="mt-4 flex space-x-2">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Donate</button>
+                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Share</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Charity Cause 5 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/GGdistasterrelief.jpg" alt="Charity Image" class="w-auto h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-gray-800">Disaster Relief Fund</h3>
+                    <p class="text-gray-600">Providing relief to victims of natural disasters.</p>
+                    <p class="text-gray-600">Target: 1000 CHRS</p>
+                    <p class="text-gray-600">Raised: 600 CHRS</p>
+                    <p class="text-gray-600">Location: South America</p>
+                    <a href="https://example.com" class="text-blue-500 hover:underline">Visit Website</a>
+                    <div class="mt-4 flex space-x-2">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Donate</button>
+                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Share</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Charity Cause 6 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/GGorphanage.jpg" alt="Charity Image" class="w-auto h-auto object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-gray-800">Orphanage Support</h3>
+                    <p class="text-gray-600">Supporting orphanages with essential supplies.</p>
+                    <p class="text-gray-600">Target: 800 CHRS</p>
+                    <p class="text-gray-600">Raised: 450 CHRS</p>
+                    <p class="text-gray-600">Location: Africa</p>
+                    <a href="https://example.com" class="text-blue-500 hover:underline">Visit Website</a>
+                    <div class="mt-4 flex space-x-2">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Donate</button>
+                        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Share</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script >
+        document.getElementById('connectButton').addEventListener('click', async () => {
+    if (typeof window.ethereum !== 'undefined') {
+        try {
+            // Request account access
+            const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+            const account = accounts[0];
+    
+            // Display wallet ID
+            document.getElementById('walletId').innerText = account;
+    
+            // Create web3 instance
+            const web3 = new Web3(window.ethereum);
+    
+            // Fetch BNB balance
+            const balanceWei = await web3.eth.getBalance(account);
+            const balanceBNB = web3.utils.fromWei(balanceWei, 'ether');
+    
+            // Display BNB balance
+            document.getElementById('bnbBalance').innerText = balanceBNB;
+        } catch (error) {
+            console.error(error);
+        }
+    } else {
+        alert('MetaMask is not installed. Please install MetaMask and try again.');
+    }
+    });
+    
+    function toggleVisibility(elementId, iconId) {
+    const element = document.getElementById(elementId);
+    const icon = document.getElementById(iconId);
+    if (element.classList.contains('masked')) {
+        element.classList.remove('masked');
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        element.classList.add('masked');
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+    }
+    
+    document.getElementById('toggleWalletId').addEventListener('click', () => {
+    toggleVisibility('walletId', 'toggleWalletId');
+    });
+    
+    document.getElementById('toggleBalance').addEventListener('click', () => {
+    toggleVisibility('bnbBalance', 'toggleBalance');
+    });
+    
+    </script>
+</body>
+</html>

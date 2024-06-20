@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Checkout Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-green-500 to-blue-500 p-8 w-auto">
+    <div class="container m-auto max-w-xl bg-gradient-to-r from-green-500 to-blue-500 p-6 rounded-lg shadow-lg">
+        <h1 class="text-4xl font-bold mb-6 text-center text-white">Payment Checkout</h1>
+        <form>
+            <!-- Token Purchase Details -->
+            <div class="mb-4">
+                <div class="mx-auto bg-white p-6 rounded-lg shadow-lg my-20">
+                    <h1 class="text-2xl font-bold mb-6 text-center">Price Calculator</h1>
+                    <form id="calculatorForm">
+                        <!-- Input Number -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700 font-semibold mb-2" for="input-number">Enter number of tokens to buy</label>
+                            <input class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="number" id="input-number" placeholder="10000 CHRS" required>
+                        </div>
+            
+                        <!-- Fixed Number Display -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700 font-semibold mb-2">Price per token</label>
+                            <div class="px-4 py-2 bg-gray-100 rounded">$5</div>
+                        </div>
+            
+                        <!-- Result Display -->
+                        <div class="mb-4">
+                            <label class="block text-gray-700 font-semibold mb-2">Total Price</label>
+                            <div id="result" class="px-4 py-2 bg-gray-100 rounded">$0</div>
+                        </div>
+                    </form>
+                </div>
+            
+                <script>
+                    document.getElementById('input-number').addEventListener('input', function() {
+                        const inputNumber = parseFloat(document.getElementById('input-number').value);
+                        const fixedNumber = 5; // Fixed number to multiply by
+                        const result = isNaN(inputNumber) ? 0 : inputNumber * fixedNumber;
+                        document.getElementById('result').innerText = `$${result}`;
+                    });
+                </script>
+            </div>
+            <div class="mx-auto bg-white p-6 rounded-lg shadow-lg my-10">
+                <h1 class="text-2xl font-bold mb-6 text-center">Card Details</h1>
+
+            <!-- Cardholder Name -->
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2" for="cardholder-name">Cardholder Name</label>
+                <input class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" id="cardholder-name" placeholder="John Doe" required>
+            </div>
+
+            <!-- Card Number -->
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2" for="card-number">Card Number</label>
+                <input class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+            </div>
+
+            <!-- Expiration Date and CVV -->
+            <div class="flex space-x-4 mb-4">
+                <div class="w-1/2">
+                    <label class="block text-gray-700 font-semibold mb-2" for="expiration-date">Expiration Date</label>
+                    <input class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" id="expiration-date" placeholder="MM/YY" required>
+                </div>
+                <div class="w-1/2">
+                    <label class="block text-gray-700 font-semibold mb-2" for="cvv">CVV</label>
+                    <input class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" type="text" id="cvv" placeholder="123" required>
+                </div>
+            </div>
+
+            <!-- Checkout Button -->
+            <div class="text-center">
+                <button class="w-full bg-green-500 text-white font-semibold py-2 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Complete Purchase</button>
+            </div>
+        </div>
+        </form>
+    </div>
+    
+</body>
+</html>

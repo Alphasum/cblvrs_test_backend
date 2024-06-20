@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Circle</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class=" flex bg-gradient-to-r from-green-500 to-blue-500 lg:w-full m-auto">
+    <aside class="w-auto bg-gray-800 text-white hidden xl:block">
+        <div class="p-4">
+          <h1 class="text-2xl font-bold w-64">
+            <a href="/"><img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/Screenshot_2024-05-25_13-04-05-removebg-preview.png"
+                alt="SanctuarySphere" class="size-8/12" /></a>
+          </h1>
+        </div>
+        <div class="py-2.5 px-4 my-5 rounded transition duration-200">
+          <div class="flex items-center">
+            <img class="w-12 h-12 rounded-full" src="https://cblvrproject-alphasums-projects.vercel.app/build/videos/profpic1.jpg" alt="Team Member 1" />
+            <a href="/profile" class="py-2.5 px-4">Welcome {{ user.first_name }}</a>
+          </div>
+          <button id="connectButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-5 rounded">Connect Wallet</button>
+            <p class="text-xs my-5">Wallet ID: <br><span id="walletId" class="masked"></span> <i id="toggleWalletId" class="fas fa-eye eye-icon"></i></p>
+            <p class="text-xs my-5">BNB Balance: <br><span id="bnbBalance" class="masked"></span> <i id="toggleBalance" class="fas fa-eye eye-icon"></i></p>
+          
+
+          
+        </div>
+        <nav class="my-5">
+          <span class="py-2.5 px-4 text-2xl font-bold ">Features</span>
+          <a href="/bible"
+            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Bible</a>
+          <a href="/socialcircle"
+            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Social Circle</a>
+          <a href="/entertainment"
+            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Christian Home Entertainment</a>
+          <a href="/blessedbazaar"
+            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Blessed Bazaar</a>
+          <a href="/spherebids"
+            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Sphere Bids and Lottery</a>
+          <a href="/gracefulgiving"
+            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Graceful Giving</a>
+          <a href="/biblespaceenv"
+            class="block py-2.5 px-4 mb-5 rounded transition duration-200 hover:bg-gray-700">Bible Space Environment</a>
+
+        </nav>
+        <a href="/logout" class=" bg-gradient-to-r from-green-500 to-orange-500 m-10 py-2 px-4 xl:py-4 xl:px-10 rounded text-sm  font-bold whitespace-nowrap hover:text-blue-950">Sign Out</a>
+
+      </aside>
+    <div class="container mx-auto m-10">
+        <header class="bg-gradient-to-r from-green-200 to-blue-500 shadow m-6 grid grid-cols-1 lg:grid-cols-2 gap-8 rounded-full">
+            <div class="container mx-auto px-6 py-4 m-auto object-center text-center">
+                <h1 class="text-3xl font-bold text-gray-800">Social Circle</h1>
+                <p class="text-gray-600">Engage with Christians from around the globe</p>
+            </div>
+            <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+            <dotlottie-player class="bg-blue-500 rounded-full hidden lg:block" src="https://lottie.host/0eb7a285-0400-4813-88b7-005776cfa648/NLRLFUXftf.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+
+        </header>        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+              <strong class="font-bold">Success!</strong>
+              <span class="block sm:inline">{{ messages[0] }}</span>
+            </div>
+          {% endif %}
+        {% endwith %}
+        <div class="lg:flex justify-center items-center lg:w-2/3 lg:m-auto m-5 ">
+            <form action="/socialcircle" method="post" enctype="multipart/form-data" class="bg-white p-6 rounded-lg shadow-md m-4 flex justify-evenly">
+                <div class="m-4 w-1/2">
+                    <label class="block text-gray-700 font-bold mb-2" for="text">Create Post</label>
+                    <textarea name="text" id="text" rows="3" required class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Write something..."></textarea>
+                    <div class="flex justify-between">
+                        
+
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Post</button>
+                    </div>
+
+                </div>
+                <div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="image">Upload an Image</label>
+                        <input type="file" name="image" id="image" accept="image/*" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold mb-2" for="video">Upload a Video</label>
+                        <input type="file" name="video" id="video" accept="video/*" class="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+        <div class="lg:w-2/3 lg:m-auto m-5">
+            {% for post in posts %}
+            <div class="bg-white p-6 rounded-lg shadow-md m-4">
+                <div class="flex my-5">
+                {% if post.poster.profile_picture %}
+                    <img src="{{ url_for('static', filename='uploads/' + post.poster.profile_picture) }}" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
+                {% else %}
+                    <p>*</p>
+                {% endif %}
+                
+                <div class="flex-col mx-5">
+                    <strong>{{ post.poster.first_name }}</strong> 
+                    <p> {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                </div>
+                </div>
+                {% if post.text %}
+                    <p class="text-lg">{{ post.text }}</p>
+                {% endif %}
+                
+                {% if post.image %}
+                    <img src="{{ url_for('static', filename='uploads/' + post.image) }}" alt="Post Image" style="max-width: 100%; margin-top: 10px;">
+                {% endif %}
+                
+                {% if post.video %}
+                    <video controls style="max-width: 100%; margin-top: 10px;">
+                        <source src="{{ url_for('static', filename='uploads/' + post.video) }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

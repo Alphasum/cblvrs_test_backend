@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <title>User Signup/Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cblvrproject-alphasums-projects.vercel.app/build/css/style.css" />
+    <link rel="icon" type="image/png" href="https://cblvrproject-alphasums-projects.vercel.app/build/img/icon.png">
+    <script src="https://cblvrproject-alphasums-projects.vercel.app/js/main.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.5.2/dist/web3.min.js"></script>
+    <style>
+        .tab-group {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 40px 0;
+        }
+
+        .tab-group:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+
+        .button {
+            border: 0;
+            outline: none;
+            border-radius: 0;
+            padding: 15px 0;
+            font-size: 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: #1ab188;
+            ;
+            transition: all 0.5s ease;
+            -webkit-appearance: none;
+        }
+
+        .button:hover,
+        .button:focus {
+            background: #179b77;
+        }
+
+        .button-block {
+            display: block;
+            width: 100%;
+        }
+
+        .tab-group li a {
+            display: block;
+            text-decoration: none;
+            padding: 15px;
+            background: rgb(0, 0, 0);
+            color: #ffffff;
+            font-size: 20px;
+            float: left;
+            width: 50%;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.5s ease;
+        }
+
+        .tab-group li a:hover {
+            background: #179b77;
+            color: #ffffff;
+
+        }
+
+        .tab-group .active a {
+            background: #1ab188;
+            color: #ffffff;
+            ;
+        }
+        .emoji-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            font-size: 5rem;
+            margin-bottom: 2rem;
+        }
+
+        .emoji {
+            position: relative;
+        }
+
+        .eye {
+            position: absolute;
+            width: 0.6em;
+            height: 0.5em;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .eye.left {
+            left: 30%;
+            top: 40%;
+        }
+
+        .eye.right {
+            right: 30%;
+            top: 40%;
+        }
+
+        .pupil {
+            position: absolute;
+            width: 0.5em;
+            height: 0.5em;
+            border-radius: 50%;
+            background: black;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-green-500 to-blue-500 text-gray-900 font-sans">
+    <div class="container mx-auto mt-10 w-1/4">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <div class="flex justify-center">
+            <div class="w-full max-w-md">
+                <div class="bg-white shadow-md rounded-3xl px-8 pt-6 pb-8 mb-4">
+                    <div class= "p-8  w-auto m-auto max-w-md">
+                        <div class="emoji-container">
+                            <div class="emoji text-9xl">
+                                😊
+                                <div class="eye left text-2xl">
+                                    <div class="pupil"></div>
+                                </div>
+                                <div class="eye right text-2xl">
+                                    <div class="pupil"></div>
+                                </div>
+                            </div>
+                        </div>
+            
+            
+                    </div>
+                    <script>
+                        document.addEventListener('mousemove', function (e) {
+                            const eyes = document.querySelectorAll('.eye');
+                            eyes.forEach(eye => {
+                                const rect = eye.getBoundingClientRect();
+                                const eyeX = rect.left + rect.width / 2;
+                                const eyeY = rect.top + rect.height / 2;
+                                const angle = Math.atan2(e.pageX - eyeX, e.pageY - eyeY);
+                                const pupil = eye.querySelector('.pupil');
+                                const distance = 0.2;
+                                const x = Math.sin(angle) * distance;
+                                const y = Math.cos(angle) * distance;
+                                pupil.style.transform = `translate(${x}em, ${y}em)`;
+                            });
+                        });
+                    </script>
+                    <ul class="tab-group mb-10 rounded-lg overflow-hidden">
+                        <li class="tab active ">
+                            <a href="#signup" class="block p-4 bg-gray-300 text-gray-700 text-xl cursor-pointer transition duration-500 ease-in-out">Sign Up</a>
+                        </li>
+                        <li class="tab ">
+                            <a href="#login" class="block p-4 bg-gray-300 text-gray-700 text-xl cursor-pointer transition duration-500 ease-in-out">Log In</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="tab-content">
+                        <div id="signup">
+                            <h1 class="text-center text-3xl font-light mb-10">Sign Up for Free</h1>
+                            <form action="/signup" method="post">
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="first_name">
+                                        Username
+                                    </label>
+                                    <input type="text" name="first_name" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                                        Email Address
+                                    </label>
+                                    <input type="email" name="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                </div>
+                                <div class="mb-6">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                                        Password
+                                    </label>
+                                    <input type="password" name="password" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+                                </div>
+                                <button type="submit" class="button button-block">Sign Up</button>
+                            </form>
+                        </div>
+                        <div id="login" class="hidden">
+                            <h1 class="text-center text-3xl font-light mb-10">Welcome Back!</h1>
+                            <form action="/login" method="post">
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                                        Email Address
+                                    </label>
+                                    <input type="email" name="email" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                </div>
+                                <div class="mb-6">
+                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                                        Password
+                                    </label>
+                                    <input type="password" name="password" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+                                </div>
+                                <a class="inline-block align-right p-5 font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+                                    Forgot Password?
+                                </a>
+
+                                <button type="submit" class="button button-block">Log In</button>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-gray-500 text-xs">
+                    &copy;2024 Acme Corp. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.tab a').forEach(tabLink => {
+            tabLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+                this.parentElement.classList.add('active');
+
+                document.querySelectorAll('.tab-content > div').forEach(tabContent => tabContent.classList.add('hidden'));
+                document.querySelector(this.getAttribute('href')).classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

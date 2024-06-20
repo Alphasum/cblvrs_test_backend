@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bible Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cblvrproject-alphasums-projects.vercel.app/build/css/style.css" />
+  <link rel="icon" type="image/png" href="https://cblvrproject-alphasums-projects.vercel.app/build/img/icon.png">
+  <script src="https://cblvrproject-alphasums-projects.vercel.app/js/main.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.5.2/dist/web3.min.js"></script>
+
+  <style>
+    .container {
+      max-width: 800px;
+    }
+
+    .masked {
+      -webkit-text-security: disc;
+      /* For Safari */
+      -text-security: disc;
+      /* For others */
+    }
+
+    .eye-icon {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body class="flex justify-evenly bg-gradient-to-r from-green-500 to-blue-500 lg:w-2/3 m-auto">
+
+  <!-- Sidebar -->
+  <aside class="w-auto bg-gray-800 text-white h-screen">
+    <div class="p-4">
+      <h1 class="text-2xl font-bold w-64">
+        <a href="/"><img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/Screenshot_2024-05-25_13-04-05-removebg-preview.png"
+            alt="SanctuarySphere" class="size-8/12" /></a>
+      </h1>
+    </div>
+    <div class="py-2.5 px-4 my-5 rounded transition duration-200">
+      <div class="flex items-center">
+        <img class="w-12 h-12 rounded-full" src="https://cblvrproject-alphasums-projects.vercel.app/build/videos/profpic1.jpg" alt="Team Member 1" />
+        <a href="/profile" class="py-2.5 px-4">Welcome {{ first_name }}</a>
+      </div>
+      <button id="connectButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-5 rounded">Connect Wallet</button>
+        <p class="text-xs my-5">Wallet ID: <br><span id="walletId" class="masked"></span> <i id="toggleWalletId" class="fas fa-eye eye-icon"></i></p>
+        <p class="text-xs my-5">BNB Balance: <br><span id="bnbBalance" class="masked"></span> <i id="toggleBalance" class="fas fa-eye eye-icon"></i></p>
+      
+
+      
+    </div>
+    <nav class="my-5">
+      <span class="py-2.5 px-4 text-2xl font-bold ">Features</span>
+      <a href="/bible"
+        class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Bible</a>
+      <a href="/socialcircle"
+        class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Social Circle</a>
+      <a href="/entertainment"
+        class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Christian Home Entertainment</a>
+      <a href="/blessedbazaar"
+        class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Blessed Bazaar</a>
+      <a href="/spherebids"
+        class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Sphere Bids and Lottery</a>
+      <a href="/gracefulgiving"
+        class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Graceful Giving</a>
+      <a href="/biblespaceenv"
+        class="block py-2.5 px-4 mb-5 rounded transition duration-200 hover:bg-gray-700">Bible Space Environment</a>
+
+    </nav>
+    <a href="/logout" class=" bg-gradient-to-r from-green-500 to-orange-500 m-10 py-2 px-4 xl:py-4 xl:px-10 rounded text-sm  font-bold whitespace-nowrap hover:text-blue-950">Sign Out</a>
+
+  </aside>
+
+  <div>
+    <header
+    class="bg-gradient-to-r from-green-200 to-blue-500 shadow m-6 grid grid-cols-1 lg:grid-cols-2 gap-8 rounded-full">
+    <div class="container mx-auto px-6 py-4 m-auto object-center text-center">
+      <h1 class="text-3xl font-bold text-gray-800">Bible Space Environment (3D)</h1>
+      <p class="text-gray-600">Explore a vast world of Bible stories and learn Christian values</p>
+    </div>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <lottie-player  class="bg-blue-500 rounded-full" src="https://lottie.host/243b4717-2da9-42e1-83a0-73357545e789/Uo6H2oWFiH.json" background="##FFFFFF" speed="1" style="width: 300px; height: 300px" loop autoplay direction="1" mode="normal"></lottie-player>
+  </header>
+  <h1 class="text-6xl font-bold text-gray-800 text-center pt-20">Coming Soon</h1>
+  <video class="w-full m-20 rounded-3xl" autoplay loop>
+    <source src="https://cblvrproject-alphasums-projects.vercel.app/build/videos/SUNSET SAVANNAH COLLECTION on 6-17-24 at 1.14 PM.webm" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <video class="w-full m-20 rounded-3xl" autoplay loop>
+    <source src="https://cblvrproject-alphasums-projects.vercel.app/build/videos/SUNSET SAVANNAH COLLECTION on 6-17-24 at 12.31 PM.webm" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <!-- 
+  <img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/video_game_character_surrounded_by_Bible_2.jpg" alt="" class="mb-6 rounded-full">
+  <img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/Biblespace2.jpg" alt="" class="mb-6 rounded-full">
+  -->
+  </div>
+
+
+  <script>
+    document.getElementById('connectButton').addEventListener('click', async () => {
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          // Request account access
+          const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+          const account = accounts[0];
+
+          // Display wallet ID
+          document.getElementById('walletId').innerText = account;
+
+          // Create web3 instance
+          const web3 = new Web3(window.ethereum);
+
+          // Fetch BNB balance
+          const balanceWei = await web3.eth.getBalance(account);
+          const balanceBNB = web3.utils.fromWei(balanceWei, 'ether');
+
+          // Display BNB balance
+          document.getElementById('bnbBalance').innerText = balanceBNB;
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        alert('MetaMask is not installed. Please install MetaMask and try again.');
+      }
+    });
+
+    function toggleVisibility(elementId, iconId) {
+      const element = document.getElementById(elementId);
+      const icon = document.getElementById(iconId);
+      if (element.classList.contains('masked')) {
+        element.classList.remove('masked');
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        element.classList.add('masked');
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
+    }
+
+    document.getElementById('toggleWalletId').addEventListener('click', () => {
+      toggleVisibility('walletId', 'toggleWalletId');
+    });
+
+    document.getElementById('toggleBalance').addEventListener('click', () => {
+      toggleVisibility('bnbBalance', 'toggleBalance');
+    });
+
+  </script>
+</body>
+
+</html>
