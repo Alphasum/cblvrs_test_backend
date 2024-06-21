@@ -11,242 +11,273 @@
   <link rel="icon" type="image/png" href="https://cblvrproject-alphasums-projects.vercel.app/build/img/icon.png">
   <script src="https://cblvrproject-alphasums-projects.vercel.app/js/main.js" defer></script>
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.5.2/dist/web3.min.js"></script>
-  
+
   <style>
+    .sidebar-expanded {
+      width: 250px;
+      position: fixed;
+    }
+
+    .sidebar-collapsed {
+      width: 0;
+      display: none;
+
+    }
+
+    .menu-icon-fixed {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+    }
+
     .container {
       max-width: 800px;
     }
+
     .masked {
-            -webkit-text-security: disc; /* For Safari */
-            -text-security: disc; /* For others */
-        }
-        .eye-icon {
-            cursor: pointer;
-        }
+      -webkit-text-security: disc;
+      /* For Safari */
+      -text-security: disc;
+      /* For others */
+    }
+
+    .eye-icon {
+      cursor: pointer;
+    }
   </style>
 </head>
 
-<body class="flex bg-gradient-to-r from-green-500 to-blue-500 w-full m-auto">
-  <div class="flex  lg:w-2/3 m-auto">
-    <div class=" px-20 ">
-      <aside class="w-auto bg-gray-800 text-white h-screen">
-        <div class="p-4">
-          <h1 class="text-2xl font-bold w-64">
-            <a href="/"><img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/Screenshot_2024-05-25_13-04-05-removebg-preview.png"
-                alt="SanctuarySphere" class="size-8/12" /></a>
-          </h1>
-        </div>
-        <div class="py-2.5 px-4 my-5 rounded transition duration-200">
-          <div class="flex items-center">
-            <img class="w-12 h-12 rounded-full" src="https://cblvrproject-alphasums-projects.vercel.app/build/videos/profpic1.jpg" alt="Team Member 1" />
-            <a href="/profile" class="py-2.5 px-4">Welcome {{ first_name }}</a>
-          </div>
-          <button id="connectButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-5 rounded">Connect Wallet</button>
-            <p class="text-xs my-5">Wallet ID: <br><span id="walletId" class="masked"></span> <i id="toggleWalletId" class="fas fa-eye eye-icon"></i></p>
-            <p class="text-xs my-5">BNB Balance: <br><span id="bnbBalance" class="masked"></span> <i id="toggleBalance" class="fas fa-eye eye-icon"></i></p>
-        </div>
-        <nav class="my-5">
-          <span class="py-2.5 px-4 text-2xl font-bold ">Features</span>
-          <a href="/bible"
-            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Bible</a>
-          <a href="/socialcircle"
-            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Social Circle</a>
-          <a href="/entertainment"
-            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Christian Home Entertainment</a>
-          <a href="/blessedbazaar"
-            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Blessed Bazaar</a>
-          <a href="/spherebids"
-            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Sphere Bids and Lottery</a>
-          <a href="/gracefulgiving"
-            class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Graceful Giving</a>
-          <a href="/biblespaceenv"
-            class="block py-2.5 px-4 mb-5 rounded transition duration-200 hover:bg-gray-700">Bible Space Environment</a>
+<body class=" flex bg-gradient-to-r from-green-500 to-blue-500 lg:w-full m-auto ">
+  <div id="sidebar" class="sidebar-collapsed lg:block bg-gray-800 text-white transition-width duration-300 z-10">
+    <nav class="mt-3 ml-5">
+      <h1 class="text-xl">
+        <a href="/"><img
+            src="https://cblvrproject-alphasums-projects.vercel.app/build/img/Screenshot_2024-05-25_13-04-05-removebg-preview.png"
+            alt="SanctuarySphere" class="size-3/12 m-auto w-auto" /></a>
+      </h1>
+      <div class="flex items-center m-3 w-auto">
+        {% if profile_picture %}
+        <a href="/profile" > <img src="{{ url_for('static', filename='uploads/' + profile_picture) }}" alt="Profile Picture"
+          style="width: 75px; height: 75px; border-radius: 50%;"> </a>        
+        {% else %}
+        <p>*</p>
+        {% endif %}
+        <a href="/profile" class="mx-5">Welcome {{ first_name }}</a>
 
-        </nav>
-        <a href="/logout" class=" bg-gradient-to-r from-green-500 to-orange-500 m-10 py-2 px-4 xl:py-4 xl:px-10 rounded text-sm  font-bold whitespace-nowrap hover:text-blue-950">Sign Out</a>
+      </div>
+      <div>
+        <button id="connectButton"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-3 rounded">Connect Wallet</button>
+        <p class="text-xs m-3">Wallet ID: <br><span id="walletId" class="masked"></span> <i id="toggleWalletId"
+            class="fas fa-eye eye-icon"></i></p>
+        <p class="text-xs m-3">BNB Balance: <br><span id="bnbBalance" class="masked"></span> <i id="toggleBalance"
+            class="fas fa-eye eye-icon"></i></p>
+      </div>
+      <div class="m-3">
+        <span class=" text-2xl font-bold">Features</span>
+        <a href="/bible" class="block rounded transition duration-200 hover:bg-gray-700">Bible</a>
+        <a href="/socialcircle" class="block  rounded transition duration-200 hover:bg-gray-700">Social Circle</a>
+        <a href="/entertainment" class=" block rounded transition duration-200 hover:bg-gray-700">Christian Home
+          Entertainment</a>
+        <a href="/blessedbazaar" class=" block rounded transition duration-200 hover:bg-gray-700">Blessed Bazaar</a>
+        <a href="/spherebids" class=" block rounded transition duration-200 hover:bg-gray-700">Sphere Bids and Lottery</a>
+        <a href="/gracefulgiving" class="block  rounded transition duration-200 hover:bg-gray-700">Graceful Giving</a>
+        <a href="/biblespaceenv" class=" block  rounded transition duration-200 hover:bg-gray-700">Bible Space
+          Environment</a>
+        <a href="/logout"
+          class="block bg-gradient-to-r from-green-500 to-orange-500 m-5 py-2 px-4 xl:py-4 xl:px-10 rounded text-sm  font-bold whitespace-nowrap hover:text-blue-950">Sign
+          Out</a>
 
-      </aside>
-    </div>
-
-    </header>
-    <div id="mobile-menu" class=" absolute left-0 w-screen  opacity-90 text-md  bg-black hidden mt-24">
-      
-    </div>
-    <!-- Sidebar -->
-
-
-    <div class="flex-col items-center min-h-screen">
-      <header class="bg-gradient-to-r from-green-200 to-blue-500 shadow m-6 grid grid-cols-2 gap-8 rounded-full">
-        <div class="container mx-auto px-6 py-4 m-auto object-center">
-          <h1 class="text-3xl font-bold text-gray-800 text-center">Bible</h1>
-          <p class="text-gray-600">Engage your spirit by reading the Bible</p>
-
-        </div>
-
-        <dotlottie-player class="bg-blue-500 rounded-full"
-          src="https://lottie.host/1a956225-64e7-48ef-9bc2-d28afd623feb/8mXJ8VXHqS.json" background="transparent"
-          speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
-
-      </header>
-
-      
-      <div class="container mx-auto p-8 bg-white  rounded-lg shadow-lg">
-
-        <div class="grid grid-cols-2 gap-8">
-          <div class="mb-4">
-            <label for="bookSelect" class="block  text-sm font-bold mb-2">Select Book</label>
-            <select id="bookSelect"
-              class="block appearance-none w-full bg-white border border-gray-400 hover:border-black px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-              <!-- Options will be populated by JavaScript -->
-            </select>
-          </div>
-
-          <div class="mb-4">
-            <label for="chapterSelect" class="block  text-sm font-bold mb-2">Select Chapter</label>
-            <select id="chapterSelect"
-              class="block appearance-none w-full bg-white border border-gray-400 hover:border-black px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-              <!-- Options will be populated by JavaScript -->
-            </select>
-          </div>
-
-        </div>
-
-        <div id="verses" class="mt-6 text-gray-800">
-          <!-- Verses will be displayed here -->
-        </div>
       </div>
 
+      
+    </nav>
+  </div>
+  <button id="toggleSidebar" class="menu-icon-fixed p-4 text-white bg-gray-800 rounded-full z-20">☰</button>
+  <script>
+    document.getElementById('toggleSidebar').addEventListener('click', function () {
+      var sidebar = document.getElementById('sidebar');
+      if (sidebar.classList.contains('sidebar-expanded')) {
+        sidebar.classList.remove('sidebar-expanded');
+        sidebar.classList.add('sidebar-collapsed');
+      } else {
+        sidebar.classList.remove('sidebar-collapsed');
+        sidebar.classList.add('sidebar-expanded');
+      }
+    });
+  </script>
+
+
+
+<div class="flex-1 w-full p-10">
+  <header class="bg-gradient-to-r from-green-200 to-blue-500 shadow flex lg:w-1/2 m-auto rounded-full">
+      <div class="container  px-6 py-4 m-auto object-center w-1/2">
+        <h1 class="text-3xl font-bold text-gray-800 text-center">Bible</h1>
+      </div>
+
+      <dotlottie-player class="bg-blue-500 rounded-full lg:block w-1/2 m-auto"
+        src="https://lottie.host/1a956225-64e7-48ef-9bc2-d28afd623feb/8mXJ8VXHqS.json" background="transparent"
+        speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+
+    </header>
+
+
+    <div class="container mx-auto my-5 p-8 bg-white  rounded-lg shadow-lg">
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="mb-4">
+          <label for="bookSelect" class="block  text-sm font-bold mb-2">Select Book</label>
+          <select id="bookSelect"
+            class="block appearance-none w-full bg-white border border-gray-400 hover:border-black px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+            <!-- Options will be populated by JavaScript -->
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label for="chapterSelect" class="block  text-sm font-bold mb-2">Select Chapter</label>
+          <select id="chapterSelect"
+            class="block appearance-none w-full bg-white border border-gray-400 hover:border-black px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+            <!-- Options will be populated by JavaScript -->
+          </select>
+        </div>
+
+      </div>
+
+      <div id="verses" class="mt-6 text-gray-800">
+        <!-- Verses will be displayed here -->
+      </div>
     </div>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const bookSelect = document.getElementById("bookSelect");
-        const chapterSelect = document.getElementById("chapterSelect");
-        const versesContainer = document.getElementById("verses");
-
-        fetch("https://cblvrproject-alphasums-projects.vercel.app/build/app/bbe.xml")
-          .then((response) => response.text())
-          .then((data) => {
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(data, "text/xml");
-
-            const books = xmlDoc.getElementsByTagName("div");
-            Array.from(books).forEach((book) => {
-              const option = document.createElement("option");
-              option.value = book.getAttribute("osisID");
-              option.textContent = book.getAttribute("osisID");
-              bookSelect.appendChild(option);
-            });
-
-            bookSelect.addEventListener("change", function () {
-              chapterSelect.innerHTML = "";
-              versesContainer.innerHTML = "";
-
-              const selectedBook = Array.from(books).find(
-                (book) => book.getAttribute("osisID") === bookSelect.value
-              );
-              if (selectedBook) {
-                const chapters = selectedBook.getElementsByTagName("chapter");
-                let defaultOption = document.createElement("option");
-                defaultOption.value = ""; // You can set a default value here, or keep it empty
-                defaultOption.textContent = "Select a Chapter";
-                chapterSelect.appendChild(defaultOption);
-                Array.from(chapters).forEach((chapter) => {
-                  let option = document.createElement("option");
-                  option.value = chapter.getAttribute("osisID");
-                  option.textContent =
-                    "Chapter " + chapter.getAttribute("osisID").split(".")[1];
-                  chapterSelect.appendChild(option);
-                });
-              }
-            });
-
-            chapterSelect.addEventListener("change", function () {
-              versesContainer.innerHTML = "";
-
-              const selectedBook = Array.from(books).find(
-                (book) => book.getAttribute("osisID") === bookSelect.value
-              );
-              if (selectedBook) {
-                const selectedChapter = Array.from(
-                  selectedBook.getElementsByTagName("chapter")
-                ).find(
-                  (chapter) =>
-                    chapter.getAttribute("osisID") === chapterSelect.value
-                );
-                if (selectedChapter) {
-                  const verses = selectedChapter.getElementsByTagName("verse");
-                  Array.from(verses).forEach((verse) => {
-                    const verseElement = document.createElement("p");
-                    verseElement.textContent =
-                      verse.getAttribute("osisID").split(".")[2] +
-                      ": " +
-                      verse.textContent;
-                    versesContainer.appendChild(verseElement);
-                  });
-                }
-              }
-            });
-          });
-      });
-    </script>
-    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
-    type="module"></script>
   </div>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const bookSelect = document.getElementById("bookSelect");
+      const chapterSelect = document.getElementById("chapterSelect");
+      const versesContainer = document.getElementById("verses");
+
+      fetch("https://cblvrproject-alphasums-projects.vercel.app/build/app/bbe.xml")
+        .then((response) => response.text())
+        .then((data) => {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(data, "text/xml");
+
+          const books = xmlDoc.getElementsByTagName("div");
+          Array.from(books).forEach((book) => {
+            const option = document.createElement("option");
+            option.value = book.getAttribute("osisID");
+            option.textContent = book.getAttribute("osisID");
+            bookSelect.appendChild(option);
+          });
+
+          bookSelect.addEventListener("change", function () {
+            chapterSelect.innerHTML = "";
+            versesContainer.innerHTML = "";
+
+            const selectedBook = Array.from(books).find(
+              (book) => book.getAttribute("osisID") === bookSelect.value
+            );
+            if (selectedBook) {
+              const chapters = selectedBook.getElementsByTagName("chapter");
+              let defaultOption = document.createElement("option");
+              defaultOption.value = ""; // You can set a default value here, or keep it empty
+              defaultOption.textContent = "Select a Chapter";
+              chapterSelect.appendChild(defaultOption);
+              Array.from(chapters).forEach((chapter) => {
+                let option = document.createElement("option");
+                option.value = chapter.getAttribute("osisID");
+                option.textContent =
+                  "Chapter " + chapter.getAttribute("osisID").split(".")[1];
+                chapterSelect.appendChild(option);
+              });
+            }
+          });
+
+          chapterSelect.addEventListener("change", function () {
+            versesContainer.innerHTML = "";
+
+            const selectedBook = Array.from(books).find(
+              (book) => book.getAttribute("osisID") === bookSelect.value
+            );
+            if (selectedBook) {
+              const selectedChapter = Array.from(
+                selectedBook.getElementsByTagName("chapter")
+              ).find(
+                (chapter) =>
+                  chapter.getAttribute("osisID") === chapterSelect.value
+              );
+              if (selectedChapter) {
+                const verses = selectedChapter.getElementsByTagName("verse");
+                Array.from(verses).forEach((verse) => {
+                  const verseElement = document.createElement("p");
+                  verseElement.textContent =
+                    verse.getAttribute("osisID").split(".")[2] +
+                    ": " +
+                    verse.textContent;
+                  versesContainer.appendChild(verseElement);
+                });
+              }
+            }
+          });
+        });
+    });
+  </script>
+  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 
 
-  <script >
+
+
+  <script>
     document.getElementById('connectButton').addEventListener('click', async () => {
-if (typeof window.ethereum !== 'undefined') {
-    try {
-        // Request account access
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        const account = accounts[0];
+      if (typeof window.ethereum !== 'undefined') {
+        try {
+          // Request account access
+          const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+          const account = accounts[0];
 
-        // Display wallet ID
-        document.getElementById('walletId').innerText = account;
+          // Display wallet ID
+          document.getElementById('walletId').innerText = account;
 
-        // Create web3 instance
-        const web3 = new Web3(window.ethereum);
+          // Create web3 instance
+          const web3 = new Web3(window.ethereum);
 
-        // Fetch BNB balance
-        const balanceWei = await web3.eth.getBalance(account);
-        const balanceBNB = web3.utils.fromWei(balanceWei, 'ether');
+          // Fetch BNB balance
+          const balanceWei = await web3.eth.getBalance(account);
+          const balanceBNB = web3.utils.fromWei(balanceWei, 'ether');
 
-        // Display BNB balance
-        document.getElementById('bnbBalance').innerText = balanceBNB;
-    } catch (error) {
-        console.error(error);
+          // Display BNB balance
+          document.getElementById('bnbBalance').innerText = balanceBNB;
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        alert('MetaMask is not installed. Please install MetaMask and try again.');
+      }
+    });
+
+    function toggleVisibility(elementId, iconId) {
+      const element = document.getElementById(elementId);
+      const icon = document.getElementById(iconId);
+      if (element.classList.contains('masked')) {
+        element.classList.remove('masked');
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        element.classList.add('masked');
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
     }
-} else {
-    alert('MetaMask is not installed. Please install MetaMask and try again.');
-}
-});
 
-function toggleVisibility(elementId, iconId) {
-const element = document.getElementById(elementId);
-const icon = document.getElementById(iconId);
-if (element.classList.contains('masked')) {
-    element.classList.remove('masked');
-    icon.classList.remove('fa-eye');
-    icon.classList.add('fa-eye-slash');
-} else {
-    element.classList.add('masked');
-    icon.classList.remove('fa-eye-slash');
-    icon.classList.add('fa-eye');
-}
-}
+    document.getElementById('toggleWalletId').addEventListener('click', () => {
+      toggleVisibility('walletId', 'toggleWalletId');
+    });
 
-document.getElementById('toggleWalletId').addEventListener('click', () => {
-toggleVisibility('walletId', 'toggleWalletId');
-});
+    document.getElementById('toggleBalance').addEventListener('click', () => {
+      toggleVisibility('bnbBalance', 'toggleBalance');
+    });
 
-document.getElementById('toggleBalance').addEventListener('click', () => {
-toggleVisibility('bnbBalance', 'toggleBalance');
-});
-
-</script>
+  </script>
 </body>
 
 </html>

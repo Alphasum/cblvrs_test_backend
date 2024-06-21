@@ -13,6 +13,23 @@
   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.5.2/dist/web3.min.js"></script>
 
   <style>
+    .sidebar-expanded {
+      width: 250px;
+      position: fixed;
+    }
+
+    .sidebar-collapsed {
+      width: 0;
+      display: none;
+
+    }
+
+    .menu-icon-fixed {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+    }
+
     .container {
       max-width: 800px;
     }
@@ -30,66 +47,83 @@
   </style>
 </head>
 
-<body class="flex justify-evenly bg-gradient-to-r from-green-500 to-blue-500 lg:w-2/3 m-auto">
-
-  <!-- Sidebar -->
-  <aside class="w-auto bg-gray-800 text-white h-screen">
-    <div class="p-4">
-      <h1 class="text-2xl font-bold w-64">
-        <a href="/"><img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/Screenshot_2024-05-25_13-04-05-removebg-preview.png"
-            alt="SanctuarySphere" class="size-8/12" /></a>
+<body class=" flex bg-gradient-to-r from-green-500 to-blue-500 lg:w-full m-auto ">
+  <div id="sidebar" class="sidebar-collapsed lg:block bg-gray-800 text-white transition-width duration-300">
+    <nav class="mt-3 ml-5">
+      <h1 class="text-xl">
+        <a href="/"><img
+            src="https://cblvrproject-alphasums-projects.vercel.app/build/img/Screenshot_2024-05-25_13-04-05-removebg-preview.png"
+            alt="SanctuarySphere" class="size-3/12 m-auto w-auto" /></a>
       </h1>
-    </div>
-    <div class="py-2.5 px-4 my-5 rounded transition duration-200">
-      <div class="flex items-center">
-        <img class="w-12 h-12 rounded-full" src="https://cblvrproject-alphasums-projects.vercel.app/build/videos/profpic1.jpg" alt="Team Member 1" />
-        <a href="/profile" class="py-2.5 px-4">Welcome {{ first_name }}</a>
+      <div class="flex items-center m-3 w-auto">
+        {% if profile_picture %}
+        <a href="/profile" > <img src="{{ url_for('static', filename='uploads/' + profile_picture) }}" alt="Profile Picture"
+          style="width: 75px; height: 75px; border-radius: 50%;"> </a>        
+        {% else %}
+        <p>*</p>
+        {% endif %}
+        <a href="/profile" class="mx-5">Welcome {{ first_name }}</a>
+
       </div>
-      <button id="connectButton" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-5 rounded">Connect Wallet</button>
-        <p class="text-xs my-5">Wallet ID: <br><span id="walletId" class="masked"></span> <i id="toggleWalletId" class="fas fa-eye eye-icon"></i></p>
-        <p class="text-xs my-5">BNB Balance: <br><span id="bnbBalance" class="masked"></span> <i id="toggleBalance" class="fas fa-eye eye-icon"></i></p>
-      
+      <div>
+        <button id="connectButton"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-3 rounded">Connect Wallet</button>
+        <p class="text-xs m-3">Wallet ID: <br><span id="walletId" class="masked"></span> <i id="toggleWalletId"
+            class="fas fa-eye eye-icon"></i></p>
+        <p class="text-xs m-3">BNB Balance: <br><span id="bnbBalance" class="masked"></span> <i id="toggleBalance"
+            class="fas fa-eye eye-icon"></i></p>
+      </div>
+      <div class="m-3">
+        <span class=" text-2xl font-bold">Features</span>
+        <a href="/bible" class="block rounded transition duration-200 hover:bg-gray-700">Bible</a>
+        <a href="/socialcircle" class="block  rounded transition duration-200 hover:bg-gray-700">Social Circle</a>
+        <a href="/entertainment" class=" block rounded transition duration-200 hover:bg-gray-700">Christian Home
+          Entertainment</a>
+        <a href="/blessedbazaar" class=" block rounded transition duration-200 hover:bg-gray-700">Blessed Bazaar</a>
+        <a href="/spherebids" class=" block rounded transition duration-200 hover:bg-gray-700">Sphere Bids and Lottery</a>
+        <a href="/gracefulgiving" class="block  rounded transition duration-200 hover:bg-gray-700">Graceful Giving</a>
+        <a href="/biblespaceenv" class=" block  rounded transition duration-200 hover:bg-gray-700">Bible Space
+          Environment</a>
+        <a href="/logout"
+          class="block bg-gradient-to-r from-green-500 to-orange-500 m-5 py-2 px-4 xl:py-4 xl:px-10 rounded text-sm  font-bold whitespace-nowrap hover:text-blue-950">Sign
+          Out</a>
+
+      </div>
 
       
-    </div>
-    <nav class="my-5">
-      <span class="py-2.5 px-4 text-2xl font-bold ">Features</span>
-      <a href="/bible"
-        class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Bible</a>
-      <a href="/socialcircle"
-        class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Social Circle</a>
-      <a href="/entertainment"
-        class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Christian Home Entertainment</a>
-      <a href="/blessedbazaar"
-        class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Blessed Bazaar</a>
-      <a href="/spherebids"
-        class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Sphere Bids and Lottery</a>
-      <a href="/gracefulgiving"
-        class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700">Graceful Giving</a>
-      <a href="/biblespaceenv"
-        class="block py-2.5 px-4 mb-5 rounded transition duration-200 hover:bg-gray-700">Bible Space Environment</a>
-
     </nav>
-    <a href="/logout" class=" bg-gradient-to-r from-green-500 to-orange-500 m-10 py-2 px-4 xl:py-4 xl:px-10 rounded text-sm  font-bold whitespace-nowrap hover:text-blue-950">Sign Out</a>
+  </div>
+  <button id="toggleSidebar" class="menu-icon-fixed p-4 text-white bg-gray-800 rounded-full">☰</button>
+  <script>
+    document.getElementById('toggleSidebar').addEventListener('click', function () {
+      var sidebar = document.getElementById('sidebar');
+      if (sidebar.classList.contains('sidebar-expanded')) {
+        sidebar.classList.remove('sidebar-expanded');
+        sidebar.classList.add('sidebar-collapsed');
+      } else {
+        sidebar.classList.remove('sidebar-collapsed');
+        sidebar.classList.add('sidebar-expanded');
+      }
+    });
+  </script>
 
-  </aside>
 
-  <div>
-    <header
-    class="bg-gradient-to-r from-green-200 to-blue-500 shadow m-6 grid grid-cols-1 lg:grid-cols-2 gap-8 rounded-full">
-    <div class="container mx-auto px-6 py-4 m-auto object-center text-center">
-      <h1 class="text-3xl font-bold text-gray-800">Bible Space Environment (3D)</h1>
-      <p class="text-gray-600">Explore a vast world of Bible stories and learn Christian values</p>
+
+<div class="flex-1 lg:w-2/3 w-full  m-auto p-10">
+  <header class="bg-gradient-to-r from-green-200 to-blue-500 shadow flex lg:w-1/2 m-auto rounded-full">
+    <div class="container  px-6 py-4 m-auto object-center w-1/2">
+      <h1 class="text-3xl font-bold text-gray-800 text-center">Bible Space Environment (3D)</h1>
     </div>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <lottie-player  class="bg-blue-500 rounded-full" src="https://lottie.host/243b4717-2da9-42e1-83a0-73357545e789/Uo6H2oWFiH.json" background="##FFFFFF" speed="1" style="width: 300px; height: 300px" loop autoplay direction="1" mode="normal"></lottie-player>
+    <lottie-player  class="bg-blue-500 rounded-full hidden lg:block" src="https://lottie.host/243b4717-2da9-42e1-83a0-73357545e789/Uo6H2oWFiH.json" background="##FFFFFF" speed="1" style="width: 300px; height: 300px" loop autoplay direction="1" mode="normal"></lottie-player>
   </header>
+
   <h1 class="text-6xl font-bold text-gray-800 text-center pt-20">Coming Soon</h1>
-  <video class="w-full m-20 rounded-3xl" autoplay loop>
+  <video class="lg:w-2/3 w-full mx-auto my-10 rounded-3xl" autoplay loop>
     <source src="https://cblvrproject-alphasums-projects.vercel.app/build/videos/SUNSET SAVANNAH COLLECTION on 6-17-24 at 1.14 PM.webm" type="video/mp4">
     Your browser does not support the video tag.
   </video>
-  <video class="w-full m-20 rounded-3xl" autoplay loop>
+  <video class="lg:w-2/3 w-full  mx-auto my-10 rounded-3xl" autoplay loop>
     <source src="https://cblvrproject-alphasums-projects.vercel.app/build/videos/SUNSET SAVANNAH COLLECTION on 6-17-24 at 12.31 PM.webm" type="video/mp4">
     Your browser does not support the video tag.
   </video>

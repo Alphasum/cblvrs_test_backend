@@ -123,8 +123,17 @@ def bible():
         flash('Please log in to access this page')
         return redirect(url_for('home'))
     
-    user_first_name = session.get('user_first_name')
-    return render_template('bible.html', first_name=user_first_name)
+    user_id = session.get('user_id')
+    user = User.query.get(user_id)
+    if not user:
+        flash('User not found')
+        return redirect(url_for('home'))
+
+    user_first_name = user.first_name
+    profile_picture = user.profile_picture  # Assuming the profile picture filename is stored in this column
+    
+    return render_template('bible.html', first_name=user_first_name, profile_picture=profile_picture)
+
 
 @app.route('/logout')
 def logout():
@@ -139,26 +148,47 @@ def biblespaceenv():
         flash('Please log in to access this page')
         return redirect(url_for('home'))
     
-    user_first_name = session.get('user_first_name')
-    return render_template('biblespaceenv.html', first_name=user_first_name)
+    user_id = session.get('user_id')
+    user = User.query.get(user_id)
+    if not user:
+        flash('User not found')
+        return redirect(url_for('home'))
 
+    user_first_name = user.first_name
+    profile_picture = user.profile_picture  # Assuming the profile picture filename is stored in this column
+    
+    return render_template('biblespaceenv.html', first_name=user_first_name, profile_picture=profile_picture)
 @app.route('/blessedbazaar')
 def blessedbazaar():
     if 'user_id' not in session:
         flash('Please log in to access this page')
         return redirect(url_for('home'))
+    user_id = session.get('user_id')
+    user = User.query.get(user_id)
+    if not user:
+        flash('User not found')
+        return redirect(url_for('home'))
+
+    user_first_name = user.first_name
+    profile_picture = user.profile_picture  # Assuming the profile picture filename is stored in this column
     
-    user_first_name = session.get('user_first_name')
-    return render_template('blessedbazaar.html', first_name=user_first_name)
+    return render_template('blessedbazaar.html', first_name=user_first_name, profile_picture=profile_picture)
 
 @app.route('/entertainment')
 def entertainment():
     if 'user_id' not in session:
         flash('Please log in to access this page')
         return redirect(url_for('home'))
+    user_id = session.get('user_id')
+    user = User.query.get(user_id)
+    if not user:
+        flash('User not found')
+        return redirect(url_for('home'))
+
+    user_first_name = user.first_name
+    profile_picture = user.profile_picture  # Assuming the profile picture filename is stored in this column
     
-    user_first_name = session.get('user_first_name')
-    return render_template('entertainment.html', first_name=user_first_name)
+    return render_template('entertainment.html', first_name=user_first_name, profile_picture=profile_picture)
 
 @app.route('/gracefulgiving')
 def gracefulgiving():
@@ -166,15 +196,24 @@ def gracefulgiving():
         flash('Please log in to access this page')
         return redirect(url_for('home'))
     
-    user_first_name = session.get('user_first_name')
-    return render_template('gracefulgiving.html', first_name=user_first_name)
+    user_id = session.get('user_id')
+    user = User.query.get(user_id)
+    if not user:
+        flash('User not found')
+        return redirect(url_for('home'))
+
+    user_first_name = user.first_name
+    profile_picture = user.profile_picture  # Assuming the profile picture filename is stored in this column
+    
+    return render_template('gracefulgiving.html', first_name=user_first_name, profile_picture=profile_picture)
+
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if 'user_id' not in session:
         flash('Please log in to access this page')
         return redirect(url_for('home'))
-    
+
     user = User.query.get(session['user_id'])
     
     if request.method == 'POST':
@@ -196,9 +235,16 @@ def spherebids():
     if 'user_id' not in session:
         flash('Please log in to access this page')
         return redirect(url_for('home'))
+    user_id = session.get('user_id')
+    user = User.query.get(user_id)
+    if not user:
+        flash('User not found')
+        return redirect(url_for('home'))
+
+    user_first_name = user.first_name
+    profile_picture = user.profile_picture  # Assuming the profile picture filename is stored in this column
     
-    user_first_name = session.get('user_first_name')
-    return render_template('spherebids.html', first_name=user_first_name)
+    return render_template('spherebids.html', first_name=user_first_name, profile_picture=profile_picture)
 
 @app.route('/socialcircle', methods=['GET', 'POST'])
 def socialcircle():
@@ -207,6 +253,14 @@ def socialcircle():
         return redirect(url_for('home'))
     
     user = User.query.get(session['user_id'])
+    user_id = session.get('user_id')
+    user = User.query.get(user_id)
+    if not user:
+        flash('User not found')
+        return redirect(url_for('home'))
+
+    user_first_name = user.first_name
+    profile_picture = user.profile_picture
     
     if request.method == 'POST':
         text = request.form.get('text')
@@ -234,7 +288,9 @@ def socialcircle():
         return redirect(url_for('socialcircle'))
     
     posts = Post.query.order_by(Post.timestamp.desc()).all()
-    return render_template('socialcircle.html', posts=posts, user=user)
+    return render_template('socialcircle.html', posts=posts, user=user,first_name=user_first_name, profile_picture=profile_picture)
+
+
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
