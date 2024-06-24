@@ -9,7 +9,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:FvIMXvBgBmAVXPEEcNTwuVFNBjJbJzqf@monorail.proxy.rlwy.net:19636/railway'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['UPLOAD_FOLDER'] = 'static/uploads/'
 app.config['MAX_CONTENT_PATH'] = 100 * 1024 * 1024  # Maximum file size of 100MB
 
