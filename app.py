@@ -140,7 +140,7 @@ def logout():
     session.pop('user_id', None)
     session.pop('user_first_name', None)
     flash('You have been logged out')
-    return redirect(url_for('home'))
+    return redirect(url_for('/'))
 
 @app.route('/biblespaceenv')
 def biblespaceenv():
