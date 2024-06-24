@@ -263,6 +263,7 @@ nav > div:last-child > .active:after {
     </style>
   </head>
   <body>
+    <div class="hidden md:block">
     <div class="indicator"></div>
     <nav>
         <div>          
@@ -733,5 +734,31 @@ async function start() {
 start();
 
     </script>
+    </div>
+    <div class="block md:hidden bg-black" >
+          <h1 class="w-auto m-auto">
+            <a href="/"><img src="https://cblvrproject-alphasums-projects.vercel.app/build/img/Screenshot_2024-05-25_13-04-05-removebg-preview.png" alt="SanctuarySphere" class="size-7/12 w-auto m-auto"></a>
+          </h1>
+        <div class="w-full m-auto text-center">
+          <a href="/about" class="hover:text-orange-500 block m-3">About</a>
+            <a href="/about#howitworks" class="hover:text-orange-500 block m-3">How it works</a>
+            <a href="/about#roadmap" class="hover:text-orange-500 block m-3">Roadmap</a>
+            <a href="/about#ourteam" class="hover:text-orange-500 block m-3">Our Team</a>
+            <a href="https://cblvrproject-alphasums-projects.vercel.app/build/CRYPTOBELIEVERS_WHITEPAPER.pdf" class="hover:text-orange-500 block m-3">Whitepaper</a>
+            <a href="{{ url_for('home') }}" class="m-5 bg-gradient-to-r from-green-500 to-orange-500 py-2 px-4 xl:py-4 xl:px-10 rounded text-sm  font-bold whitespace-nowrap hover:text-blue-950">GET STARTED</a>
+
+        </div>
+        <h2 class=" text-center text-xl sm:text-2xl md:text-4xl font-bold my-5">
+          Earn 
+          <span class=" text-green-500">Financially</span>
+          as you Earn <span class="text-orange-500">Spiritually.</span>
+      </h2>
+     <p class=" p-2 mt-2 text-center  text-green-500 italic "> 
+          Acts 2:44-45 (NIV): "All the believers were together and had everything in common. They sold property and possessions to give to anyone who had need." 
+      </p>
+
+    </div>
+
+    </div>
   </body>
 </html>
